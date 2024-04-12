@@ -1,163 +1,232 @@
-import streamlit as st
 import time
 import random
 
 def display_intro():
-    st.title("Bem-vindo ao Jogo de Aventura Textual Desafiador!")
-    st.write("Você se encontra em uma floresta escura e traiçoeira. Sua sobrevivência depende de suas escolhas.")
-    st.write("Faça as escolhas erradas, e você pode nunca escapar desta floresta. Boa sorte!\n")
+    print("Welcome to the Challenging Text Adventure Game!")
+    print("You find yourself in a dark and treacherous forest. Your survival depends on your choices.")
+    print("Make the wrong decisions, and you may never escape this forest. Good luck!\n")
 
 def make_choice(options):
-    choice = st.selectbox("Escolha uma opção:", options, index=0)
-    return choice
+    while True:
+        choice = input("Choose an option ({0}): ".format('/'.join(options))).strip().lower()
+        if choice in options:
+            return choice
+        else:
+            print("Invalid input. Please choose a valid option.")
 
 def encounter_wild_animal():
-    st.write("Enquanto você caminha pela floresta, encontra um animal selvagem!")
+    print("As you walk through the forest, you encounter a wild animal!")
     time.sleep(1)
-    st.write("É um lobo feroz!")
+    print("It's a fierce wolf!")
     time.sleep(1)
-    st.write("O que você quer fazer?")
-    choice = make_choice(['--', 'Lutar contra o lobo', 'Tentar fugir'])
-    if choice != '--':
-        if choice == 'Lutar contra o lobo':
-            st.write("Você decide lutar contra o lobo!")
-            time.sleep(1)
-            st.write("Você pega um graveto próximo e enfrenta corajosamente o lobo.")
-            time.sleep(2)
-            if random.random() < 0.5:
-                st.write("Incrivelmente, de alguma forma, você consegue derrotar o lobo! Você pode continuar sua jornada.")
-            else:
-                st.write("O lobo se prova ser muito forte para você. Você mal consegue escapar com sua vida.")
+    print("What do you want to do?")
+    print("a: Fight the wolf")
+    print("b: Try to run away")
+    choice = make_choice(['a', 'b'])
+    if choice == 'a':
+        print("You decide to fight the wolf!")
+        time.sleep(1)
+        print("You grab a stick nearby and bravely face the wolf.")
+        time.sleep(2)
+        if random.random() < 0.5:
+            print("Incredibly somehow, you manage to defeat the wolf! You can continue your journey.")
+            print("You can continue your previous path.")
         else:
-            st.write("Você tenta fugir do lobo.")
-            time.sleep(2)
-            if random.random() < 0.3:
-                st.write("Você consegue escapar do lobo e continuar sua jornada.")
-            else:
-                st.write("O lobo te alcança e ataca. Você está ferido, mas consegue afugentá-lo.")
+            print("The wolf proves to be too strong for you. You barely escape with your life.")
+            print("You died horribly, jackass.")
+    else:
+        print("You try to run away from the wolf.")
+        time.sleep(2)
+        if random.random() < 0.3:
+            print("You manage to escape from the wolf and continue your journey.")
+            print("You can continue your previous path.")
+        else:
+            print("The wolf catches up to you and attacks. You are injured, but you manage to scare it away.")
+            print("You died horribly, jackass.")
 
 def find_useful_item():
-    st.write("Enquanto explora a floresta, você encontra um esconderijo secreto!")
+    print("While exploring the forest, you find a hidden stash!")
     time.sleep(1)
-    st.write("Dentro do esconderijo, você encontra uma poção de cura.")
+    print("Inside the stash, you find a potion of healing.")
     time.sleep(1)
-    st.write("Esta poção pode ajudá-lo em sua jornada.")
+    print("This potion can help you in your journey.")
     time.sleep(1)
-    st.write("Você adiciona a poção ao seu inventário.")
+    print("You add the potion to your inventory.")
+    print("You can continue your previous path.")
 
 def solve_environmental_riddle():
-    st.write("Você se depara com um monumento de pedra antigo com inscrições misteriosas.")
+    print("You come across an ancient stone monument with mysterious inscriptions.")
     time.sleep(1)
-    st.write("As inscrições parecem ser um enigma.")
+    print("The inscriptions seem to be a riddle.")
     time.sleep(1)
-    st.write("Resolva o enigma para prosseguir.")
+    print("Solve the riddle to proceed.")
     time.sleep(1)
-    st.write("Riddle: What has keys but can't open locks?")
-    answer = st.text_input("Sua resposta: ").lower()
-    if answer == "keyboard":
-        st.write("Correto! O monumento de pedra treme, e uma passagem oculta é revelada.")
+    print("Riddle: Say friend to unlock?")
+    answer = input("Your answer: ").strip().lower()
+    if answer == "friend":
+        print("Correct! The stone monument trembles, and a hidden passage is revealed.")
+        print("You found Pamela Anderson and she made your dream come through.")
         time.sleep(1)
-        st.write("Você pode continuar sua jornada.")
+        print("You can continue your journey.")
     else:
-        st.write("Resposta incorreta. Você deve ponderar sobre o enigma para prosseguir.")
+        print("Incorrect answer. You must ponder the riddle further to proceed.")
 
 def discover_secret_location():
-    st.write("Enquanto explora a floresta, você percebe um padrão estranho nas árvores.")
+    print("While exploring the forest, you notice a strange pattern in the trees.")
     time.sleep(1)
-    st.write("Seguindo seus instintos, você investiga mais a fundo e encontra uma caverna escondida.")
+    print("Following your instincts, you investigate further and find a hidden cave.")
     time.sleep(1)
-    st.write("Dentro da caverna, você descobre uma câmara secreta.")
+    print("Inside the cave, you discover a secret chamber.")
     time.sleep(1)
-    st.write("A câmara contém um tesouro valioso!")
+    print("The chamber contains a valuable treasure!")
     time.sleep(1)
-    st.write("Você coleta o tesouro e continua sua jornada.")
+    print("You collect the treasure and continue your journey.")
 
-def left_path():
-    st.write("Você segue pelo caminho da esquerda e encontra um rio.")
-    time.sleep(2)
-    st.write("Você pode atravessar o rio ou segui-lo rio abaixo.")
-    choice = make_choice(['--', 'Atravessar o rio', 'Seguir rio abaixo'])
-    if choice != '--':
-        if choice == 'Atravessar o rio':
-            st.write("Você tenta atravessar o rio, mas é arrastado pela correnteza. Fim de Jogo!")
-        else:
-            st.write("Você segue o rio rio abaixo e encontra uma cachoeira escondida. Você pode escalá-la ou contorná-la.")
-            choice = make_choice(['--', 'Escalar a cachoeira', 'Contornar a cachoeira'])
-            if choice != '--':
-                if choice == 'Escalar a cachoeira':
-                    st.write("Você consegue escalar a cachoeira com sucesso, mas encontra uma criatura perigosa do outro lado.")
-                    time.sleep(2)
-                    st.write("Você tem dois aliados de Clash of Clans, P.E.K.K.A e Wizard, para ajudá-lo a derrotar a criatura.")
-                    ally_choice = make_choice(['--', 'Escolher P.E.K.K.A para a guerra', 'Escolher Wizard para a guerra'])
-                    if ally_choice != '--':
-                        if ally_choice == 'Escolher P.E.K.K.A para a guerra':
-                            st.write("Você escolhe P.E.K.K.A, e juntos vocês derrotam a criatura e escapam com sucesso. Você vence!")
-                        else:
-                            st.write("Você escolhe Wizard, mas a criatura se mostra muito poderosa, e você é derrotado. Fim de Jogo.")
-                else:
-                    st.write("Você contorna a cachoeira e eventualmente encontra seu caminho para fora da floresta. Você vence!")
+def random_events():
+    events = [encounter_wild_animal, discover_secret_location, solve_environmental_riddle, find_useful_item]
+    random.choice(events)()
 
-def right_path():
-    st.write("Você segue pelo caminho da direita e se depara com uma caverna.")
-    time.sleep(2)
-    st.write("Você entra na caverna e descobre um baú do tesouro guardado por um dragão feroz.")
-    time.sleep(2)
-    st.write("Você tem duas opções para derrotar o dragão:")
-    dragon_choice = make_choice(['--', 'Usar um dragão elétrico', 'Usar uma espada pequena'])
-    if dragon_choice != '--':
-        if dragon_choice == 'Usar um dragão elétrico':
-            st.write("Você convoca o dragão elétrico, que derrota o dragão feroz. Você vence!")
-        else:
-            st.write("Você tenta lutar contra o dragão com a espada pequena, mas não é suficiente. O dragão te incendeia. Fim de Jogo!")
 
-def deeper_path():
-    st.write("Você se aventura mais fundo na floresta e encontra uma casa misteriosa.")
-    time.sleep(2)
-    st.write("Você entra na casa misteriosa. Está escuro lá dentro.")
-    time.sleep(2)
-    st.write("Você explora a casa ou sai imediatamente?")
-    choice = make_choice(['--', 'Explorar a casa', 'Sair imediatamente'])
-    if choice != '--':
-        if choice == 'Explorar a casa':
-            st.write("Você explora a casa e descobre dois caminhos diferentes:")
+def path_a():
+  time.sleep(2)
+  print("You can cross the river (a) or follow it downstream (b).")
+  choice_a = make_choice(['a', 'b'])
+  if choice_a == 'a':
+    print("You try to cross the river but get swept away by the current. Game Over!")
+  else:
+    print("You follow the river downstream and find a hidden waterfall. You can climb it (a) or go around it (b).")
+    choice_waterfall = make_choice(['a', 'b'])
+
+    if choice_waterfall == 'a':
+      print("You successfully climb the waterfall, but you encounter a dangerous creature on the other side.")
+      time.sleep(2)
+      print("You have two allies from Clash of Clans, P.E.K.K.A and Wizard, to help you defeat the creature.")
+      print("a: Choose P.E.K.K.A to wage war")
+      print("b: Choose Wizard to wage war ")
+      ally_choice = make_choice(['a', 'b'])
+      if ally_choice == 'a':
+          print("You choose P.E.K.K.A, and together you defeat the creature and successfully escape")
+          time.sleep(2)
+          print("Now both of you applies to the next Monster Inc. movie as Sully and boo")
+          time.sleep(2)
+          print("You win!")
+      else:
+          print("You choose Wizard, but the creature proves too powerful and transforms you in a dwarf.")
+          time.sleep(2)
+          print("As a dwarf you don't have the height to play the game.")
+          time.sleep(2)
+          print("Game over!")
+    else:
+      print("As you go around, you found Bilu, the E.T.")
+      time.sleep(2)
+      print("You can't handle all the knowledge and dies")
+      time.sleep(2)
+      print("Game over!")
+
+def path_b():
+  time.sleep(2)
+  print("You enter the cave and discover a treasure chest guarded by a albine dragon.")
+  time.sleep(2)
+  print("You have two options to defeat the dragon:")
+  print("a: Use an electro dragon lord of dragons.")
+  print("b: Use a little sword.")
+  
+  dragon_choice = make_choice(['a', 'b'])
+  if random.random() < 0.3:
+    random_events()
+    continue_path(dragon_choice = dragon_choice)
+  else:
+    if dragon_choice == 'a':
+        print("You summon the electro dragon lord of dragons, which defeats the albine dragon.")
+        time.sleep(2)
+        print("As reward the dragon transforms you in an electrified albino.")
+        time.sleep(2)
+        print("You win!.")
+    else:
+        print("You attempt to fight the dragon with the little sword, but it's not enough. The dragon breathes fire on you.")
+        time.sleep(2)
+        print("You died horribly, jackass.")
+        time.sleep(2)
+        print("Game over!")
+
+def path_c():
+  time.sleep(2)
+  print("You enter the mysterious house. It's dark inside.")
+  time.sleep(2)
+  print("Do you explore the house (A) or leave immediately (B)?")
+  choices = {
+      'a': "Explore the house.",
+      'b': "Leave immediately."
+  }
+
+  choice_house = make_choice(choices)
+
+  if random.random() < 0.3:
+    random_events()
+    continue_path(choice_house = choice_house)
+  else:   
+    if choice_house == 'a':
+        print("You explore the house and discover two different paths:")
+        time.sleep(2)
+        print("a: Talk to Martina Oliveira from only fans")
+        print("b: Get a drug that could help")
+        
+        house_choice = make_choice(['a', 'b'])
+        
+        if house_choice == 'a':
+            print("She says: 2 dollars or a mystery box?.")
             time.sleep(2)
-            house_choice = make_choice(['--', 'Obter poder invisível e derrotar a bruxa dentro da casa', 'Entrar na ilha gigante e se perder'])
-            if house_choice != '--':
-                if house_choice == 'Obter poder invisível e derrotar a bruxa dentro da casa':
-                    st.write("Você encontra uma fonte oculta de poder invisível na casa, usa-a para derrotar a bruxa e escapa com sucesso. Você vence!")
-                else:
-                    st.write("Você entra na ilha gigante e se perde em sua vastidão. Fim de Jogo!")
+            print("You do not have time to answer, a big witch sudenly appears.")
+            time.sleep(2)
+            print("You just turn around with a hard dick and...")
+            time.sleep(2)
+            print("You Win, fatality! (read as in mortal combat).")
         else:
-            st.write("Você sai da casa e eventualmente encontra seu caminho para fora da floresta. Você vence!")
+          print("You took an insane amout of molly")
+          time.sleep(2)
+          print("You enter in a  giant island and get lost in its vastness.")
+          time.sleep(2)
+          print("Game over.")
 
+    else:
+        print("When you are leaving the house, you fall in a Saw movie like trap and dies!")
+        time.sleep(2)
+        print("Game over!")
+
+def continue_path(choice = None, dragon_choice = None, choice_house = None):
+  if choice:
+    path_a()
+  elif dragon_choice:
+    path_b()
+  else:
+    path_C()
+  
 def forest_path():
-    st.write("Você começa a caminhar pela floresta...")
+    print("You start walking through the forest...")
     time.sleep(2)
     
     paths = {
-        '--': "Escolha um caminho...",
-        'Esquerda': "Você segue pelo caminho da esquerda e encontra um rio.",
-        'Direita': "Você segue pelo caminho da direita e se depara com uma caverna.",
-        'Mais Profundo': "Você se aventura mais fundo na floresta e encontra uma casa misteriosa."
+        'a': "You take the left path and find a river.",
+        'b': "You take the right path and come across a cave.",
+        'c': "You venture deeper into the forest and find a mysterious house."
     }
-    
     choice = make_choice(paths.keys())
-    
-    if choice != '--':
-        st.write(paths[choice])
-        
-        if choice == 'Esquerda':
-            left_path()
-        elif choice == 'Direita':
-            right_path()
-        else:
-            deeper_path()
 
     if random.random() < 0.3:
-        encounter_wild_animal()
-    if random.random() < 0.2:
-        find_useful_item()
+        random_events()
+        continue_path(choice = choice)
+    else:
+      print(paths[choice])
+      
+      if choice == 'a':
+          path_a()
 
+      elif choice == 'b':
+        path_b()
+      
+      else:
+        path_c()
+        
 def main():
     display_intro()
     forest_path()
